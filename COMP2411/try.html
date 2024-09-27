@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .reserve-button {
+            background-color: #cd7f32; /* Bronze color */
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+            width: 140px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        just a testing line
+        <br>
+        <br>
+        <br>
+    </p>
+
+<button class="reserve-button" id="reserveBtn">Reserve Now!</button>
+
+    <p>
+        <br>
+        <br>
+        <br>
+        only a testing line
+    </p>
+
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span id="closeModal" style="cursor:pointer; float:right;">&times;</span>
+        <h2>Reservation Form</h2>
+        <form id="reservationForm">
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name" required><br><br>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br><br>
+            <label for="date">Select Date:</label><br>
+            <input type="date" id="date" name="date" required><br><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</div>
+
+<div id="confirmationTable" style="display:none;">
+    <h2>Confirmation</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+</div>
+
+<script>
+    const reserveBtn = document.getElementById('reserveBtn');
+    const modal = document.getElementById('myModal');
+    const closeModal = document.getElementById('closeModal');
+    const reservationForm = document.getElementById('reservationForm');
+    const confirmationTable = document.getElementById('confirmationTable');
+    const tableBody = document.getElementById('tableBody');
+
+    reserveBtn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    closeModal.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    reservationForm.onsubmit = function(event) {
+        event.preventDefault();
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const date = document.getElementById('date').value;
+
+        const row = `<tr>
+                        <td>${name}</td>
+                        <td>${email}</td>
+                        <td>${date}</td>
+                        <td>
+                            <button onclick="confirmReservation(this)">Confirm</button>
+                            <button onclick="cancelReservation(this)">Cancel</button>
+                        </td>
+                    </tr>`;
+        tableBody.innerHTML += row;
+
+        modal.style.display = "none";
+        confirmationTable.style.display = "block";
+        reservationForm.reset();
+    }
+
+    function confirmReservation(button) {
+        alert("Reservation Confirmed!");
+        button.parentElement.parentElement.remove();
+    }
+
+    function cancelReservation(button) {
+        button.parentElement.parentElement.remove();
+    }
+</script>
+
+</body>
+</html>

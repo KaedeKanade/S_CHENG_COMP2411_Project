@@ -1,0 +1,75 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+#bookNowBtn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    z-index: 10;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Start off-screen */
+    width: 25%;
+    height: 100%;
+    background-color: rgb(205, 151, 112); /* Brown with transparency */
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    z-index: 20;
+}
+
+.sidebar.active {
+    right: 0; /* Slide in */
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+    align-self: flex-end;
+}
+
+.restaurant-list {
+    flex-grow: 1;
+}
+
+.restaurant {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.restaurant:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Light hover effect */
+}
+
+.restaurant.selected {
+    background-color: rgba(255, 255, 255, 0.4); /* Selected background */
+}
+
+#checkAvailabilityBtn {
+    position: fixed;
+    padding: 10px 20px;
+    bottom: 30px;
+    font-size: 20px;
+    box-align: center;
+    cursor: pointer;
+}
+
+.no-scroll {
+    overflow: hidden; /* Prevent scrolling */
+}

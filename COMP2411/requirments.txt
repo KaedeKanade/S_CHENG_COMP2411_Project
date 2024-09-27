@@ -1,0 +1,18 @@
+Database:
+Tables: 
+Banquet: {BanquetID, GuestID, Date, Time, Table, Guest_num, Menu}
+Guest: {GuestID, FirstName, LastName, Email, Phone, Region, Correspondent(boolean)}
+Reservation: {ReservationID, GuestID,TableID, CheckInDate, CheckOutDate, Status}
+Service: {ServiceID, ServiceName, Description, Price, Availability}
+Menu: {MenuID, Name, Description, Price, Category}
+Table: {TableID, TableNumber, TableType, Capacity, Location, Status}
+Staff: {StaffID, FirstName, LastName, Position, Email, Phone}
+Payment: {PaymentID, ReservationID, Amount, PaymentMethod, PaymentDate}
+Feedback: {FeedbackID, GuestID, ReservationID, Rating, Comments, Date}
+
+Software UI functions:
+sign up and sign in function;
+detection of user's account type {guest, staff, database_admin};
+add rows to the tables;
+delete rows to the tables;
+

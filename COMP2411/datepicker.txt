@@ -1,0 +1,57 @@
+sample code:
+
+html:
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<label for="date">Select Date:</label><br>
+<input type="text" id="date" name="date" required readonly>
+
+javascript
+$(function() {
+    const today = new Date();
+    const unavailableDates = []; // Array to hold fully registered dates
+
+    // Example: Fetch fully registered dates from the database (mocked here)
+    // Replace this with an actual AJAX call to your server
+    const fetchFullyRegisteredDates = () => {
+        // Mocked data: Assume these dates are fully registered
+        return [
+            new Date(today.getFullYear(), today.getMonth(), today.getDate() + 5),
+            new Date(today.getFullYear(), today.getMonth(), today.getDate() + 10)
+        ];
+    };
+
+    // Get fully registered dates
+    unavailableDates.push(...fetchFullyRegisteredDates());
+
+    $("#date").datepicker({
+        minDate: 0, // Disable past dates
+        maxDate: "+30D", // Allow selection up to 30 days in the future
+        beforeShowDay: function(date) {
+            const day = date.getDay();
+            const isUnavailable = unavailableDates.some(d => d.getTime() === date.getTime());
+            const isPast = date < today;
+
+            if (isPast || day === 0 || day === 6) { // Disable weekends and past dates
+                return [false, "unavailable-date", "Unavailable"];
+            } else if (isUnavailable) {
+                return [true, "fully-registered-date", "Fully Registered"];
+            } else {
+                return [true, "", "Available"];
+            }
+        }
+    });
+});
+
+css:
+.unavailable-date a {
+    background-color: rgba(255, 0, 0, 0.5); /* Red background with 50% transparency */
+    pointer-events: none; /* Make it unclickable */
+    color: #fff; /* White text */
+}
+
+.fully-registered-date a {
+    background-color: rgba(255, 0, 0, 0.5); /* Red background with 50% transparency */
+    color: #fff; /* White text */
+}
